@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,8 +17,10 @@ public class ServiceGenerator {
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create());
 
-    private static Retrofit retrofit = builder.build();
-
+    private  static Retrofit retrofit;
+    public static Retrofit retrofit(){
+        return retrofit;
+    }
     private static HttpLoggingInterceptor logging =
             new HttpLoggingInterceptor()
                     .setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -44,6 +47,7 @@ public class ServiceGenerator {
         retrofit = builder.build();
         return retrofit.create(serviceClass);
     }
+
 
 
 }
