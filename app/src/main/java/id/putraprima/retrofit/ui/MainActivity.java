@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mMainTxtAppName;
     private TextView mMainTxtAppVersion;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,4 +96,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+
+    public void handleRecipe(View view) {
+        Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+        startActivity(intent);
+    }
+
 }
