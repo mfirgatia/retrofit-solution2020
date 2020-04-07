@@ -1,7 +1,5 @@
 package id.putraprima.retrofit.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
@@ -25,7 +25,7 @@ import retrofit2.Response;
 public class UpdatePasswordActivity extends AppCompatActivity {
 
     private EditText mPasswordPasswordUpdateText;
-    private EditText mEmailPasswordUpdateText;
+    private EditText mConfirmPasswordUpdateText;
 
     private UpdatePasswordRequest updatePasswordRequest;
 
@@ -34,7 +34,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_password);
         mPasswordPasswordUpdateText = findViewById(R.id.passwordPasswordUpdateText);
-        mEmailPasswordUpdateText = findViewById(R.id.emailPasswordUpdateText);
+        mConfirmPasswordUpdateText = findViewById(R.id.confirmPasswordUpdateText);
     }
 
     public void doUpdatePassword(){
@@ -45,20 +45,16 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         call.enqueue(new Callback<Envelope<UpdatePasswordResponse>>() {
             @Override
             public void onResponse(Call<Envelope<UpdatePasswordResponse>> call, Response<Envelope<UpdatePasswordResponse>> response) {
-                if (response.isSuccessful()) {
-//                    Toast.makeText(UpdatePasswordActivity.this, "Update Password Success", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()){
+                    Toast.makeText(UpdatePasswordActivity.this, "Update Password Success", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     setResult(2, intent);
                     finish();
-                } else {
+                }else{
                     ApiError error = ErrorUtils.parseError(response);
-                    if (error.getError().getPassword() != null) {
-                        Toast.makeText(UpdatePasswordActivity.this, error.getError().getPassword().get(0), Toast.LENGTH_SHORT).show();
-                    } else if (error.getError().getConfirmPassword() != null) {
-                        Toast.makeText(UpdatePasswordActivity.this, error.getError().getConfirmPassword().get(0), Toast.LENGTH_SHORT).show();
-                    } else if (error.getError().getPassword() != null) {
-                        for (int k = 0; k < error.getError().getPassword().size(); k++) {
-                            Toast.makeText(UpdatePasswordActivity.this, error.getError().getPassword().get(k), Toast.LENGTH_SHORT).show();
+                    if (error.getError().getPassword() != null){
+                        for (int i = 0;i < error.getError().getPassword().size();i++){
+                            Toast.makeText(UpdatePasswordActivity.this, error.getError().getPassword().get(i), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -73,10 +69,8 @@ public class UpdatePasswordActivity extends AppCompatActivity {
 
     public void handleUpdatePassword(View view) {
         String password = mPasswordPasswordUpdateText.getText().toString();
-        String password_confirm = mPasswordPasswordUpdateText.getText().toString();
+        String password_confirm = mConfirmPasswordUpdateText.getText().toString();
         updatePasswordRequest = new UpdatePasswordRequest(password, password_confirm);
-
         doUpdatePassword();
     }
 }
-

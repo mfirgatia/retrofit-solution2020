@@ -1,6 +1,7 @@
 package id.putraprima.retrofit.api.models;
 
 public class Recipe {
+
     private int id;
     private String nama_resep;
     private String deskripsi;

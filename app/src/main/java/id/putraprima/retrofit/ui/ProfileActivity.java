@@ -1,9 +1,5 @@
 package id.putraprima.retrofit.ui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +8,9 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
@@ -57,14 +56,21 @@ public class ProfileActivity extends AppCompatActivity {
     private void getMe() {
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(context);
         Toast.makeText(context, preference.getString("token", null), Toast.LENGTH_SHORT).show();
-        ApiInterface service = ServiceGenerator.createService(ApiInterface.class, "Bearer " + preference.getString("token", null));
-        Call<Envelope<UserInfo>> call = service.me();
+        ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+        Call<Envelope<UserInfo>> call = service.me("Bearer"+" "+preference.getString("token", null));
         call.enqueue(new Callback<Envelope<UserInfo>>() {
             @Override
             public void onResponse(Call<Envelope<UserInfo>> call, Response<Envelope<UserInfo>> response) {
-                mIdText.setText(Integer.toString(response.body().getData().getId()));
-                mNameText.setText(response.body().getData().getName());
-                mEmailText.setText(response.body().getData().getEmail());
+                if (response.isSuccessful()){
+                    mIdText.setText(Integer.toString(response.body().getData().getId()));
+                    mNameText.setText(response.body().getData().getName());
+                    mEmailText.setText(response.body().getData().getEmail());
+                }else{
+                    ApiError error = ErrorUtils.parseError(response);
+                   if (error.getError() != null){
+                       Toast.makeText(ProfileActivity.this, error.getError().toString(), Toast.LENGTH_SHORT).show();
+                   }
+                }
             }
 
             @Override
@@ -83,4 +89,10 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UpdatePasswordActivity.class);
         startActivityForResult(intent, 2);
     }
+
+    public void handleRecipe(View view) {
+        Intent intent = new Intent(this, RecipeActivity.class);
+        startActivity(intent);
+    }
+
 }

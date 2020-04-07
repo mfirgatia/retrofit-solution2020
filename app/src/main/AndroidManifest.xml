@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.UpdateProfileActivity"></activity>
+        <activity android:name=".ui.RecipeActivity"></activity>
         <activity android:name=".ui.UpdatePasswordActivity" />
+        <activity android:name=".ui.UpdateProfileActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".ui.SplashActivity">

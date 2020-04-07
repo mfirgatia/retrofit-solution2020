@@ -18,10 +18,12 @@ import id.putraprima.retrofit.api.models.UserInfo;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
-public interface ApiInterface{
+public interface ApiInterface {
     @GET("/")
     Call<AppVersion> getAppVersion();
 
@@ -32,7 +34,7 @@ public interface ApiInterface{
     Call<Envelope<RegisterResponse>> doRegister(@Body RegisterRequest registerRequest);
 
     @GET("/api/auth/me")
-    Call<Envelope<UserInfo>> me();
+    Call<Envelope<UserInfo>> me(@Header("Authorization") String token);
 
     @PATCH("/api/account/profile")
     Call<Envelope<UpdateProfileResponse>> doUpdateProfile(@Body UpdateProfileRequest updateProfileRequest);
@@ -42,4 +44,7 @@ public interface ApiInterface{
 
     @GET("/api/recipe")
     Call<Envelope<List<Recipe>>> doRecipe();
+
+    @GET("/api/recipe")
+    Call<Envelope<List<Recipe>>> doLoadMore(@Query("page") int page);
 }

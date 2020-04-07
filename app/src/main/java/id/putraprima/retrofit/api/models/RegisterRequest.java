@@ -1,13 +1,17 @@
 package id.putraprima.retrofit.api.models;
 
 public class RegisterRequest {
-    String name,email,password,passwordConfirmation;
 
-    public RegisterRequest(String name, String email, String password, String passwordConfirmation) {
+    public String name;
+    public String email;
+    public String password;
+    public String password_confirmation;
+
+    public RegisterRequest(String name, String email, String password, String password_confirmation) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
+        this.password_confirmation = password_confirmation;
     }
 
     public String getName() {
@@ -34,11 +38,11 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getPasswordConfirmation() {
-        return passwordConfirmation;
+    public String getPassword_confirmation() {
+        return password_confirmation;
     }
 
-    public void setPasswordConfirmation(String passwordConfirmation) {
-        this.passwordConfirmation = passwordConfirmation;
+    public void setPassword_confirmation(String password_confirmation) {
+        this.password_confirmation = password_confirmation;
     }
 }

@@ -1,7 +1,5 @@
 package id.putraprima.retrofit.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,9 +8,10 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import id.putraprima.retrofit.R;
 import id.putraprima.retrofit.api.helper.ServiceGenerator;
@@ -41,9 +40,6 @@ public class SplashActivity extends AppCompatActivity {
         lblAppName = findViewById(R.id.lblAppName);
         lblAppTittle = findViewById(R.id.lblAppTittle);
         lblAppVersion = findViewById(R.id.lblAppVersion);
-        //Sembunyikan lblAppName dan lblAppVersion pada saat awal dibuka
-//        lblAppVersion.setVisibility(View.INVISIBLE);
-//        lblAppName.setVisibility(View.INVISIBLE);
     }
 
     private boolean checkInternetConnection() {

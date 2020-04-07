@@ -1,11 +1,23 @@
 package id.putraprima.retrofit.api.models;
 
 public class RegisterResponse {
-    public int id;
-    public String name, email;
 
-    public RegisterResponse(String email) {
+    public int id;
+    public String name;
+    public String email;
+
+    public RegisterResponse(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,4 +36,3 @@ public class RegisterResponse {
         this.email = email;
     }
 }
-
