@@ -95,4 +95,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void handleUpload(View view) {
+        Intent intent = new Intent(this, UploadActivity.class);
+        startActivity(intent);
+    }
 }
